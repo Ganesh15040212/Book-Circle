@@ -1,8 +1,6 @@
 // Central API configuration for BookCircle PHP backend
 // Requests go through the Vite dev proxy (/api → http://localhost/bookcircle-api)
-export const API_BASE = import.meta.env.PROD 
-    ? 'http://bookcircle2026.lovestoblog.com' 
-    : '/api';
+export const API_BASE = '/api';
 
 export const apiFetch = async (
     path: string,

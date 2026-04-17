@@ -29,7 +29,7 @@ export default defineConfig({
         port: 5174,
         proxy: {
             '/api': {
-                target: 'https://bookcircle-api.lovestoblog.com',
+                target: 'http://localhost',
                 changeOrigin: true,
                 rewrite: (p) => p.replace(/^\/api/, '/bookcircle-api'),
             },

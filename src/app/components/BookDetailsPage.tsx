@@ -383,7 +383,7 @@ export const BookDetailsPage: React.FC<BookDetailsPageProps> = ({ book: initialB
           ) : (
             <div className="bg-gray-50 border border-gray-200 rounded-2xl p-4 flex items-center gap-3 grayscale">
               <div className="bg-gray-100 p-2 rounded-full"><AlertCircle className="w-5 h-5 text-gray-400" /></div>
-              <p className="text-gray-500 font-semibold text-sm tracking-tight">This listing is currently {book.status} and unavailable.</p>
+              <p className="text-gray-500 font-semibold text-sm tracking-tight">This listing is currently {book.status}.</p>
             </div>
           )}
 

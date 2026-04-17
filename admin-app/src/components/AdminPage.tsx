@@ -835,9 +835,14 @@ const FeedbackView: React.FC<{ feedbacks: any[] }> = ({ feedbacks }) => (
                                     />
                                 ))}
                             </div>
-                            <span className="px-2 py-0.5 bg-indigo-50 text-indigo-600 text-[8px] font-black uppercase rounded-full">
-                                {f.category}
-                            </span>
+                            <div className="flex flex-col items-end gap-1">
+                                <span className="text-[9px] font-bold text-slate-300 leading-none">
+                                    {new Date(f.created_at).toLocaleDateString()}
+                                </span>
+                                <span className="px-2 py-0.5 bg-indigo-50 text-indigo-600 text-[8px] font-black uppercase rounded-full">
+                                    {f.category}
+                                </span>
+                            </div>
                         </div>
 
                         <p className="text-sm font-medium text-slate-700 mb-6 leading-relaxed">
@@ -854,10 +859,6 @@ const FeedbackView: React.FC<{ feedbacks: any[] }> = ({ feedbacks }) => (
                                     {f.email || (f.registered_user_name ? 'Registered User' : 'Guest')}
                                 </p>
                             </div>
-                        </div>
-
-                        <div className="absolute top-4 right-4 text-[10px] font-black text-slate-300">
-                            {new Date(f.created_at).toLocaleDateString()}
                         </div>
                     </motion.div>
                 ))}

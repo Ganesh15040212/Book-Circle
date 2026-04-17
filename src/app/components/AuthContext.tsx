@@ -70,10 +70,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const data = await response.json();
 
     if (!response.ok) {
-      const errorMessage = typeof data.error === 'string' 
-        ? data.error 
-        : (data.error?.message || JSON.stringify(data.error) || 'Login failed');
-      throw new Error(errorMessage);
+      throw new Error(data.error || 'Login failed');
     }
 
     setAccessToken(data.access_token);
@@ -98,10 +95,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const data = await response.json();
 
     if (!response.ok) {
-      const errorMessage = typeof data.error === 'string' 
-        ? data.error 
-        : (data.error?.message || JSON.stringify(data.error) || 'Registration failed');
-      throw new Error(errorMessage);
+      throw new Error(data.error || 'Registration failed');
     }
 
     setAccessToken(data.access_token);
