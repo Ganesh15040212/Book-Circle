@@ -10,9 +10,10 @@ import { CaptchaWidget } from './CaptchaWidget';
 
 interface LoginPageProps {
   onSwitchToRegister: () => void;
+  onForgotPassword: () => void;
 }
 
-export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
+export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister, onForgotPassword }) => {
   const { login } = useAuth();
 
   const [email, setEmail] = useState('');
@@ -87,7 +88,16 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <div className="flex justify-between items-center">
+                <Label htmlFor="password">Password</Label>
+                <button
+                  type="button"
+                  onClick={onForgotPassword}
+                  className="text-xs font-bold text-indigo-600 hover:underline"
+                >
+                  Forgot password?
+                </button>
+              </div>
               <Input
                 id="password"
                 type="password"

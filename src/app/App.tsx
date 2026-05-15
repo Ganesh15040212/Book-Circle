@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { AuthProvider, useAuth } from './components/AuthContext';
 import { LoginPage } from './components/LoginPage';
 import { RegisterPage } from './components/RegisterPage';
+import { ForgotPasswordPage } from './components/ForgotPasswordPage';
 import { Navbar } from './components/Navbar';
 import { HomePage } from './components/HomePage';
 import { BookDetailsPage } from './components/BookDetailsPage';
@@ -16,7 +17,7 @@ import { FeedbackDialog } from './components/FeedbackDialog';
 import { MessageSquare } from 'lucide-react';
 
 type Page = 'home' | 'book-details' | 'add-book' | 'my-requests' | 'notifications' | 'profile';
-type AuthView = 'login' | 'register';
+type AuthView = 'login' | 'register' | 'forgot-password';
 
 const AppContent: React.FC = () => {
   const { user, isLoading, accessToken } = useAuth();
@@ -73,9 +74,13 @@ const AppContent: React.FC = () => {
     if (authView === 'register') {
       return <RegisterPage onSwitchToLogin={() => setAuthView('login')} />;
     }
+    if (authView === 'forgot-password') {
+      return <ForgotPasswordPage onBackToLogin={() => setAuthView('login')} />;
+    }
     return (
       <LoginPage
         onSwitchToRegister={() => setAuthView('register')}
+        onForgotPassword={() => setAuthView('forgot-password')}
       />
     );
   }
