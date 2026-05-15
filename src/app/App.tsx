@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from './components/AuthContext';
 import { LoginPage } from './components/LoginPage';
 import { RegisterPage } from './components/RegisterPage';
 import { ForgotPasswordPage } from './components/ForgotPasswordPage';
+import { ResetPasswordPage } from './components/ResetPasswordPage';
 import { Navbar } from './components/Navbar';
 import { HomePage } from './components/HomePage';
 import { BookDetailsPage } from './components/BookDetailsPage';
@@ -17,7 +18,7 @@ import { FeedbackDialog } from './components/FeedbackDialog';
 import { MessageSquare } from 'lucide-react';
 
 type Page = 'home' | 'book-details' | 'add-book' | 'my-requests' | 'notifications' | 'profile';
-type AuthView = 'login' | 'register' | 'forgot-password';
+type AuthView = 'login' | 'register' | 'forgot-password' | 'reset-password';
 
 const AppContent: React.FC = () => {
   const { user, isLoading, accessToken } = useAuth();
@@ -25,7 +26,28 @@ const AppContent: React.FC = () => {
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [notificationCount, setNotificationCount] = useState(0);
   const [authView, setAuthView] = useState<AuthView>('login');
+  const [resetToken, setResetToken] = useState<string | null>(null);
+  const [resetEmail, setResetEmail] = useState<string | null>(null);
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
+
+  useEffect(() => {
+    // Check for reset token in URL
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+    const email = params.get('email');
+    const view = params.get('view');
+
+    if (token && email && view === 'reset-password') {
+      setResetToken(token);
+      setResetEmail(email);
+      setAuthView('reset-password');
+      // Clean up URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+    } else if (view === 'forgot-password') {
+      setAuthView('forgot-password');
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }, []);
 
   useEffect(() => {
     if (user) {
@@ -76,6 +98,19 @@ const AppContent: React.FC = () => {
     }
     if (authView === 'forgot-password') {
       return <ForgotPasswordPage onBackToLogin={() => setAuthView('login')} />;
+    }
+    if (authView === 'reset-password' && resetToken && resetEmail) {
+      return (
+        <ResetPasswordPage
+          token={resetToken}
+          email={resetEmail}
+          onSuccess={() => {
+            setAuthView('login');
+            setResetToken(null);
+            setResetEmail(null);
+          }}
+        />
+      );
     }
     return (
       <LoginPage

@@ -88,12 +88,12 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister, onForg
             </div>
 
             <div className="space-y-2">
-              <div className="flex justify-between items-center">
+              <div className="flex items-center justify-between">
                 <Label htmlFor="password">Password</Label>
                 <button
                   type="button"
                   onClick={onForgotPassword}
-                  className="text-xs font-bold text-indigo-600 hover:underline"
+                  className="text-sm text-indigo-600 hover:underline font-medium"
                 >
                   Forgot password?
                 </button>
