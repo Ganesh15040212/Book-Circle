@@ -50,7 +50,7 @@ export default defineConfig({
       // All /api/* requests are proxied to the PHP backend
       // This completely eliminates CORS issues in development
       '/api': {
-        target: 'http://localhost/bookcircle-api',
+        target: 'http://127.0.0.1/bookcircle-api',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
